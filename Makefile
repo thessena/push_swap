@@ -6,7 +6,7 @@
 #    By: thessena <thessena@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 12:05:54 by thessena          #+#    #+#              #
-#    Updated: 2024/12/12 12:07:08 by thessena         ###   ########.fr        #
+#    Updated: 2025/01/14 14:01:27 by thessena         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ OBJ_FILES   = $(SRC_FILES:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # Colors
 GREEN       = \033[0;32m
-RESET       = \033[0m
+RESET       = \033[0m  
 
 # Rules
 all: $(NAME)
