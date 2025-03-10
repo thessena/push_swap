@@ -16,6 +16,7 @@
 		"string_view": "cpp",
 		"tuple": "cpp",
 		"vector": "cpp",
-		"algorithm": "cpp"
+		"algorithm": "cpp",
+		"push_swap.h": "c"
 	}
 }

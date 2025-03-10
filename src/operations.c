@@ -1,4 +1,5 @@
 #include "push_swap.h"
+#include <stdio.h>
 
 void push(t_stack *src, t_stack *dst)
 {
@@ -6,6 +7,7 @@ void push(t_stack *src, t_stack *dst)
 		dst->data[dst->size] = src->data[src->size - 1];
 	src->size--;
 	dst->size++;
+	printf("push\n");
 }
 
 void swap(t_stack *stack)
@@ -18,6 +20,7 @@ void swap(t_stack *stack)
 		stack->data[stack->size - 1] = stack->data[stack->size - 2];
 		stack->data[stack->size - 2] = tmp;
 	}
+	printf("swap\n");
 }
 
 void rotate(t_stack *stack)
@@ -36,6 +39,7 @@ void rotate(t_stack *stack)
 		}
 		stack->data[0] = tmp;
 	}
+	printf("rotate\n");
 }
 
 void reverse_rotate(t_stack *stack)
@@ -54,4 +58,5 @@ void reverse_rotate(t_stack *stack)
 		}
 		stack->data[stack->size - 1] = tmp;
 	}
+	printf("reverse rotate\n");
 }

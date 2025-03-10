@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/10 10:10:34 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:34:14 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,18 @@ void	free_stack(t_stack *stack)
 
 void push_swap(t_stack *stack_a, t_stack *stack_b)
 {
-	(void)stack_a;
-	(void)stack_b;
+	push(stack_a, stack_b);
+	printf("stack_a: %d\n", stack_a->size);
+	printf("stack_b: %d\n", stack_b->size);
+	swap(stack_a);
+	printf("stack_a: %d\n", stack_a->size);
+	printf("stack_b: %d\n", stack_b->size);
+	rotate(stack_a);
+	printf("stack_a: %d\n", stack_a->size);
+	printf("stack_b: %d\n", stack_b->size);
+	reverse_rotate(stack_a);
+	printf("stack_a: %d\n", stack_a->size);
+	printf("stack_b: %d\n", stack_b->size);
 }
 
 int	main(int argc, char **argv)
@@ -56,6 +66,7 @@ int	main(int argc, char **argv)
 		printf("Usage: %s [integers]\n", argv[0]);
 		return (1);
 	}
+
 	t_stack	*stack_a;
 	t_stack	*stack_b;
 
@@ -63,7 +74,9 @@ int	main(int argc, char **argv)
 	stack_b = init_stack(0, NULL);
 	if (!stack_a || !stack_b)
 	{
-		printf("Error\n");
+		printf("Error: Stack initialization failed\n");
+		free_stack(stack_a);
+		free_stack(stack_b);
 		return (1);
 	}
 	push_swap(stack_a, stack_b);
