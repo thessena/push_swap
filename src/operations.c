@@ -1,4 +1,4 @@
-#include "push-swap.h"
+#include "push_swap.h"
 
 void push(t_stack *src, t_stack *dst)
 {
@@ -35,5 +35,23 @@ void rotate(t_stack *stack)
 			i--;
 		}
 		stack->data[0] = tmp;
+	}
+}
+
+void reverse_rotate(t_stack *stack)
+{
+	int tmp;
+	int i;
+
+	if (stack->size > 1)
+	{
+		tmp = stack->data[0];
+		i = 0;
+		while (i < stack->size - 1)
+		{
+			stack->data[i] = stack->data[i + 1];
+			i++;
+		}
+		stack->data[stack->size - 1] = tmp;
 	}
 }
