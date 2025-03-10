@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/01/15 13:58:43 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/10 10:10:34 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,32 @@ t_stack	*init_stack(int size, char **argv)
 	stack = malloc(sizeof(t_stack));
 	if (!stack)
 		return (NULL);
+	stack->data = malloc(sizeof(int) * size);
+	if(!stack->data)
+	{
+		free(stack);
+		return (NULL);
+	}
 	stack->size = size;
+	stack->capacity = size;
+	if (size)
+	{
+		while (--size >= 0)
+			stack->data[size] = atoi(argv[size]);
+	}
 	return (stack);
+}
+
+void	free_stack(t_stack *stack)
+{
+	free(stack->data);
+	free(stack);
+}
+
+void push_swap(t_stack *stack_a, t_stack *stack_b)
+{
+	(void)stack_a;
+	(void)stack_b;
 }
 
 int	main(int argc, char **argv)
@@ -37,5 +61,13 @@ int	main(int argc, char **argv)
 
 	stack_a = init_stack(argc - 1, &argv[1]);
 	stack_b = init_stack(0, NULL);
+	if (!stack_a || !stack_b)
+	{
+		printf("Error\n");
+		return (1);
+	}
+	push_swap(stack_a, stack_b);
+	free_stack(stack_a);
+	free_stack(stack_b);
 	return (0);
 }
