@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/11 15:23:46 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:23:27 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "push_swap.h"
 
-void	init_stack(t_stack **a, char **argv)
+/* void	init_stack(t_stack **a, char **argv)
 {
 	int	n;
 	int	i;
@@ -26,7 +26,7 @@ void	init_stack(t_stack **a, char **argv)
 		append_node(a, n);
 		i++;
 	}
-}
+} */
 
 /* void	free_stack(t_stack *stack)
 {
@@ -34,7 +34,7 @@ void	init_stack(t_stack **a, char **argv)
 	free(stack);
 } */
 
-void push_swap(t_stack *stack_a, t_stack *stack_b)
+/* void push_swap(t_stack *stack_a, t_stack *stack_b)
 {
 	push(stack_a, stack_b);
 	printf("stack_a: %d\n", stack_a->size);
@@ -48,6 +48,35 @@ void push_swap(t_stack *stack_a, t_stack *stack_b)
 	reverse_rotate(stack_a);
 	printf("stack_a: %d\n", stack_a->size);
 	printf("stack_b: %d\n", stack_b->size);
+} */
+
+t_stack *init_stack(int argc, char **argv)
+{
+	t_stack	*a;
+	int	i;
+	int	num;
+	
+	a = NULL;
+	i = 1;
+	while(i < argc)
+	{
+		num = atoi(argv[i]);
+		append_node(&a, num);
+		i++;
+	}
+}
+
+int	stack_size(t_stack *stack)
+{
+	int	size;
+
+	size = 0;
+	while(stack)
+	{
+		size++;
+		stack = stack->next;
+	}
+	return(size);
 }
 
 int	main(int argc, char **argv)
@@ -55,16 +84,14 @@ int	main(int argc, char **argv)
 	t_stack	*a;
 	t_stack	*b;
 	
-	a = NULL;
-	b = NULL;
 	if (argc < 2)
 	{
 		printf("Usage: %s [integers]\n", argv[0]);
-		return (1);
+		return (0);
 	}
-	init_stack(&a, argv + 1);
-	init_stack(&b, NULL);
-	push_swap(a, b);
+	a = NULL;
+	b = NULL;
+	a = init_stack(argc, argv);
 	free_stack(a);
 	free_stack(b);
 	return (0);
