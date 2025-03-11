@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/11 11:07:02 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:23:46 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	init_stack(t_stack **a, char **argv)
 	}
 }
 
-void	free_stack(t_stack *stack)
+/* void	free_stack(t_stack *stack)
 {
 	free(stack->data);
 	free(stack);
-}
+} */
 
 void push_swap(t_stack *stack_a, t_stack *stack_b)
 {
