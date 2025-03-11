@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/11 18:23:27 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:31:56 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,30 @@
 	printf("stack_a: %d\n", stack_a->size);
 	printf("stack_b: %d\n", stack_b->size);
 } */
+
+create_node(int value)
+{
+	t_stack	*new_node;
+	
+	new_node = (t_stack *)malloc(sizeof(t_stack));
+	new_node->value = value;
+	new_node->next = NULL;
+	return(new_node);
+}
+
+void append_node(t_stack **stack, int value)
+{
+	t_stack	*new_node;
+	t_stack	*last;
+
+	new_node = create_node(value);
+	last = *stack;
+	while(last->next)
+	{
+		last = last->next;
+	}
+	last->next = new_node;
+}
 
 t_stack *init_stack(int argc, char **argv)
 {
