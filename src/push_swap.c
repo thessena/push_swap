@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/11 18:31:56 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/11 18:49:23 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 	printf("stack_b: %d\n", stack_b->size);
 } */
 
-create_node(int value)
+t_stack *create_node(int value)
 {
 	t_stack	*new_node;
 	
@@ -88,6 +88,7 @@ t_stack *init_stack(int argc, char **argv)
 		append_node(&a, num);
 		i++;
 	}
+	return(a);
 }
 
 int	stack_size(t_stack *stack)
@@ -109,10 +110,7 @@ int	main(int argc, char **argv)
 	t_stack	*b;
 	
 	if (argc < 2)
-	{
-		printf("Usage: %s [integers]\n", argv[0]);
 		return (0);
-	}
 	a = NULL;
 	b = NULL;
 	a = init_stack(argc, argv);
