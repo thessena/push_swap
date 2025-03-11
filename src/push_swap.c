@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/10 15:34:14 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/11 11:07:02 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,18 @@
 #include <stdlib.h>
 #include "push_swap.h"
 
-t_stack	*init_stack(int size, char **argv)
+void	init_stack(t_stack **a, char **argv)
 {
-	t_stack	*stack;
+	int	n;
+	int	i;
 
-	stack = malloc(sizeof(t_stack));
-	if (!stack)
-		return (NULL);
-	stack->data = malloc(sizeof(int) * size);
-	if(!stack->data)
+	i = 0;
+	while(argv[i])
 	{
-		free(stack);
-		return (NULL);
+		n = atoi(argv[i]);
+		append_node(a, n);
+		i++;
 	}
-	stack->size = size;
-	stack->capacity = size;
-	if (size)
-	{
-		while (--size >= 0)
-			stack->data[size] = atoi(argv[size]);
-	}
-	return (stack);
 }
 
 void	free_stack(t_stack *stack)
@@ -61,26 +52,20 @@ void push_swap(t_stack *stack_a, t_stack *stack_b)
 
 int	main(int argc, char **argv)
 {
+	t_stack	*a;
+	t_stack	*b;
+	
+	a = NULL;
+	b = NULL;
 	if (argc < 2)
 	{
 		printf("Usage: %s [integers]\n", argv[0]);
 		return (1);
 	}
-
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-
-	stack_a = init_stack(argc - 1, &argv[1]);
-	stack_b = init_stack(0, NULL);
-	if (!stack_a || !stack_b)
-	{
-		printf("Error: Stack initialization failed\n");
-		free_stack(stack_a);
-		free_stack(stack_b);
-		return (1);
-	}
-	push_swap(stack_a, stack_b);
-	free_stack(stack_a);
-	free_stack(stack_b);
+	init_stack(&a, argv + 1);
+	init_stack(&b, NULL);
+	push_swap(a, b);
+	free_stack(a);
+	free_stack(b);
 	return (0);
 }
