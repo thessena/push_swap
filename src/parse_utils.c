@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 17:05:34 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/12 17:12:56 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:30:27 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,12 @@ int	has_duplicate(t_stack *stack, int value)
 	return (0);
 }
 
-
-
-long	ft_atoi(const char *str, int *error)
+long	ft_atoi(const char *str)
 {
 	long	result;
 	int		sign;
 	int		i;
 
-	*error = 0;
 	result = 0;
 	sign = 1;
 	i = 0;
@@ -69,12 +66,7 @@ long	ft_atoi(const char *str, int *error)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		result = result * 10 + (str[i] - '0');
-		if (result > INT_MAX || result < INT_MIN)
-		{
-			*error = 1;
-			return (0);
-		}
+		result = result * 10 + (str[i++] - '0');
 		i++;
 	}
 	return (sign * result);
@@ -85,7 +77,6 @@ t_stack	*init_stack(int argc, char **argv)
 	t_stack	*a;
 	int		i;
 	long	num;
-	int		error;
 
 	a = NULL;
 	i = 1;
@@ -96,13 +87,8 @@ t_stack	*init_stack(int argc, char **argv)
 			free_stack(a);
 			return (NULL);
 		}
-		num = (int)ft_atoi(argv[i], &error);
-		if (error)
-		{
-			free_stack(a);
-			return (NULL);
-		}
-		if (has_duplicate(a, num))
+		num = ft_atoi(argv[i]);
+		if (num > INT_MAX || num < INT_MIN || has_duplicate(a, num))
 		{
 			free_stack(a);
 			return (NULL);

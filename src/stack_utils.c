@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 17:04:06 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/12 17:06:05 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:36:55 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,18 @@ void	append_node(t_stack **stack, int value)
 	t_stack	*last;
 
 	new_node = create_node(value);
-	if (!new_node)
-		return;
-	if (!*stack)
+	if (new_node)
 	{
-		*stack = new_node;
-		return;
+		if (!*stack)
+			*stack = new_node;
+		else
+		{
+			last = *stack;
+			while (last->next)
+				last = last->next;
+			last->next = new_node;
+		}
 	}
-	last = *stack;
-	while (last->next)
-	{
-		last = last->next;
-	}
-	last->next = new_node;
 }
 
 int	stack_size(t_stack *stack)
