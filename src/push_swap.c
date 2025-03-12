@@ -6,10 +6,11 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/12 13:24:17 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/12 14:01:44 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "push_swap.h"
@@ -83,6 +84,40 @@ void append_node(t_stack **stack, int value)
 	last->next = new_node;
 }
 
+int	is_valid_number(char *str)
+{
+	int	i;
+
+	if(!str || *str == '\0')
+		return(0);
+	i = 0;
+	if(str[i] == '-')
+		i++;
+	if(str[i] == '\0')
+		return(0);
+	while(str[i])
+	{
+		if(str[i] < '0' || str[i] > '9')
+			return(0);
+		i++;
+	}
+	return(1);
+}
+
+int	has_duplicate(t_stack *stack, int value)
+{
+	t_stack *current;
+
+	current = stack;
+	while(current)
+	{
+		if(current->value == value)
+			return(1);
+		current = current->next;
+	}
+	return(0);
+}
+
 t_stack *init_stack(int argc, char **argv)
 {
 	t_stack	*a;
@@ -94,6 +129,11 @@ t_stack *init_stack(int argc, char **argv)
 	while(i < argc)
 	{
 		num = atoi(argv[i]);
+		if(has_duplicate(a, num))
+		{
+			free_stack(a);
+			return(NULL);
+		}
 		append_node(&a, num);
 		i++;
 	}
