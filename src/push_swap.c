@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/12 14:01:44 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:01:03 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,69 +15,33 @@
 #include <stdlib.h>
 #include "push_swap.h"
 
-/* void	init_stack(t_stack **a, char **argv)
-{
-	int	n;
-	int	i;
-
-	i = 0;
-	while(argv[i])
-	{
-		n = atoi(argv[i]);
-		append_node(a, n);
-		i++;
-	}
-} */
-
-/* void	free_stack(t_stack *stack)
-{
-	free(stack->data);
-	free(stack);
-} */
-
-/* void push_swap(t_stack *stack_a, t_stack *stack_b)
-{
-	push(stack_a, stack_b);
-	printf("stack_a: %d\n", stack_a->size);
-	printf("stack_b: %d\n", stack_b->size);
-	swap(stack_a);
-	printf("stack_a: %d\n", stack_a->size);
-	printf("stack_b: %d\n", stack_b->size);
-	rotate(stack_a);
-	printf("stack_a: %d\n", stack_a->size);
-	printf("stack_b: %d\n", stack_b->size);
-	reverse_rotate(stack_a);
-	printf("stack_a: %d\n", stack_a->size);
-	printf("stack_b: %d\n", stack_b->size);
-} */
-
-t_stack *create_node(int value)
+t_stack	*create_node(int value)
 {
 	t_stack	*new_node;
-	
+
 	new_node = (t_stack *)malloc(sizeof(t_stack));
-	if(!new_node)
-		return(NULL);
+	if (!new_node)
+		return (NULL);
 	new_node->value = value;
 	new_node->next = NULL;
-	return(new_node);
+	return (new_node);
 }
 
-void append_node(t_stack **stack, int value)
+void	append_node(t_stack **stack, int value)
 {
 	t_stack	*new_node;
 	t_stack	*last;
 
 	new_node = create_node(value);
-	if(!new_node)
-		return;
-	if(!*stack)
+	if (!new_node)
+		return ();
+	if (!*stack)
 	{
 		*stack = new_node;
-		return;
+		return ();
 	}
 	last = *stack;
-	while(last->next)
+	while (last->next)
 	{
 		last = last->next;
 	}
@@ -88,56 +52,88 @@ int	is_valid_number(char *str)
 {
 	int	i;
 
-	if(!str || *str == '\0')
-		return(0);
+	if (!str || *str == '\0')
+		return (0);
 	i = 0;
-	if(str[i] == '-')
+	if (str[i] == '-')
 		i++;
-	if(str[i] == '\0')
-		return(0);
-	while(str[i])
+	if (str[i] == '\0')
+		return (0);
+	while (str[i])
 	{
-		if(str[i] < '0' || str[i] > '9')
-			return(0);
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
 		i++;
 	}
-	return(1);
+	return (1);
 }
 
 int	has_duplicate(t_stack *stack, int value)
 {
-	t_stack *current;
+	t_stack	*current;
 
 	current = stack;
-	while(current)
+	while (current)
 	{
-		if(current->value == value)
-			return(1);
+		if (current->value == value)
+			return (1);
 		current = current->next;
 	}
-	return(0);
+	return (0);
 }
 
-t_stack *init_stack(int argc, char **argv)
+long	ft_atoi(const char *str, int *error)
+{
+	long	result;
+	int		sign;
+	int		i;
+
+	*error = 0;
+	result = 0;
+	sign = 1;
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + (str[i] - '0');
+		if (result > INT_MAX || result < INT_MIN)
+		{
+			*error = 1;
+			return (0);
+		}
+		i++;
+	}
+	return (sign * result);
+}
+
+t_stack	*init_stack(int argc, char **argv)
 {
 	t_stack	*a;
-	int	i;
-	int	num;
-	
+	int		i;
+	int		num;
+
 	a = NULL;
 	i = 1;
-	while(i < argc)
+	while (i < argc)
 	{
 		num = atoi(argv[i]);
-		if(has_duplicate(a, num))
+		if (has_duplicate(a, num))
 		{
 			free_stack(a);
-			return(NULL);
+			return (NULL);
 		}
 		append_node(&a, num);
 		i++;
 	}
-	return(a);
+	return (a);
 }
 
 int	stack_size(t_stack *stack)
@@ -145,19 +141,19 @@ int	stack_size(t_stack *stack)
 	int	size;
 
 	size = 0;
-	while(stack)
+	while (stack)
 	{
 		stack = stack->next;
 		size++;
 	}
-	return(size);
+	return (size);
 }
 
-void free_stack(t_stack *stack)
+void	free_stack(t_stack *stack)
 {
 	t_stack	*tmp;
 
-	while(stack)
+	while (stack)
 	{
 		tmp = stack;
 		stack = stack->next;
@@ -169,19 +165,19 @@ int	main(int argc, char **argv)
 {
 	t_stack	*a;
 	t_stack	*b;
-	
+
 	if (argc < 2)
 	{
 		write(1, "Error\n", 6);
-		return(1);
+		return (1);
 	}
 	a = NULL;
 	b = NULL;
 	a = init_stack(argc, argv);
-	if(!a)
+	if (!a)
 	{
 		write(1, "Error\n", 6);
-		return(1);
+		return (1);
 	}
 	free_stack(a);
 	return (0);
