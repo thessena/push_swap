@@ -6,14 +6,15 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/12 15:01:03 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:36:55 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "push_swap.h"
+#include <limits.h>
+#include "../include/push_swap.h"
 
 t_stack	*create_node(int value)
 {
@@ -34,11 +35,11 @@ void	append_node(t_stack **stack, int value)
 
 	new_node = create_node(value);
 	if (!new_node)
-		return ();
+		return;
 	if (!*stack)
 	{
 		*stack = new_node;
-		return ();
+		return;
 	}
 	last = *stack;
 	while (last->next)
@@ -118,13 +119,24 @@ t_stack	*init_stack(int argc, char **argv)
 {
 	t_stack	*a;
 	int		i;
-	int		num;
+	long	num;
+	int		error;
 
 	a = NULL;
 	i = 1;
 	while (i < argc)
 	{
-		num = atoi(argv[i]);
+		if (!is_valid_number(argv[i]))
+		{
+			free_stack(a);
+			return (NULL);
+		}
+		num = (int)ft_atoi(argv[i], &error);
+		if (error)
+		{
+			free_stack(a);
+			return (NULL);
+		}
 		if (has_duplicate(a, num))
 		{
 			free_stack(a);
@@ -161,6 +173,42 @@ void	free_stack(t_stack *stack)
 	}
 }
 
+void	print_stack(t_stack *stack)
+{
+	int		i;
+	int		n;
+	char	num[12];
+
+	while (stack)
+	{
+		i = 0;
+		n = stack->value;
+		if (n < 0)
+		{
+			write(1, "-", 1);
+			n = -n;
+		}
+		if (n == 0)
+		{
+			num[i] = '0';
+			i++;
+		}
+		while (n > 0)
+		{
+			num[i] = (n % 10) + '0';
+			i++;
+			n = n / 10;
+		}
+		while (i > 0)
+		{
+			i--;
+			write(1, &num[i], 1);
+		}
+		write(1, "\n", 1);
+		stack = stack->next;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*a;
@@ -179,6 +227,7 @@ int	main(int argc, char **argv)
 		write(1, "Error\n", 6);
 		return (1);
 	}
+	print_stack(a);
 	free_stack(a);
 	return (0);
 }
