@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/11 18:49:23 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:24:17 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ t_stack *create_node(int value)
 	t_stack	*new_node;
 	
 	new_node = (t_stack *)malloc(sizeof(t_stack));
+	if(!new_node)
+		return(NULL);
 	new_node->value = value;
 	new_node->next = NULL;
 	return(new_node);
@@ -66,6 +68,13 @@ void append_node(t_stack **stack, int value)
 	t_stack	*last;
 
 	new_node = create_node(value);
+	if(!new_node)
+		return;
+	if(!*stack)
+	{
+		*stack = new_node;
+		return;
+	}
 	last = *stack;
 	while(last->next)
 	{
@@ -98,10 +107,22 @@ int	stack_size(t_stack *stack)
 	size = 0;
 	while(stack)
 	{
-		size++;
 		stack = stack->next;
+		size++;
 	}
 	return(size);
+}
+
+void free_stack(t_stack *stack)
+{
+	t_stack	*tmp;
+
+	while(stack)
+	{
+		tmp = stack;
+		stack = stack->next;
+		free(tmp);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -110,11 +131,18 @@ int	main(int argc, char **argv)
 	t_stack	*b;
 	
 	if (argc < 2)
-		return (0);
+	{
+		write(1, "Error\n", 6);
+		return(1);
+	}
 	a = NULL;
 	b = NULL;
 	a = init_stack(argc, argv);
+	if(!a)
+	{
+		write(1, "Error\n", 6);
+		return(1);
+	}
 	free_stack(a);
-	free_stack(b);
 	return (0);
 }
