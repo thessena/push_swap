@@ -6,40 +6,12 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 17:09:10 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/13 19:14:24 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:20:32 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
-
-void	pb(t_stack **a, t_stack **b)
-{
-	t_stack	*tmp;
-
-	if(*a)
-	{
-		tmp = *a;
-		*a = (*a)->next;
-		tmp->next = *b;
-		*b = tmp;
-		write(1, "pb\n", 3);
-	}
-
-}
-void	pa(t_stack **a, t_stack **b)
-{
-	t_stack	*tmp;
-
-	if(*b)
-	{
-		tmp = *b;
-		*b = (*b)->next;
-		tmp->next = *a;
-		*a = tmp;
-		write(1, "pa\n", 3);
-	}
-}
 
 void	sa(t_stack **a)
 {
@@ -76,7 +48,69 @@ void	ss(t_stack **a, t_stack **b)
 	write(1, "ss\n", 3);
 }
 
+void	pb(t_stack **a, t_stack **b)
+{
+	t_stack	*tmp;
 
+	if(*a)
+	{
+		tmp = *a;
+		*a = (*a)->next;
+		tmp->next = *b;
+		*b = tmp;
+		write(1, "pb\n", 3);
+	}
+
+}
+void	pa(t_stack **a, t_stack **b)
+{
+	t_stack	*tmp;
+
+	if(*b)
+	{
+		tmp = *b;
+		*b = (*b)->next;
+		tmp->next = *a;
+		*a = tmp;
+		write(1, "pa\n", 3);
+	}
+}
+
+void	ra(t_stack **a)
+{
+	t_stack *tmp;
+	t_stack	*last;
+
+	if(*a || (*a)->next)
+	{
+		tmp = *a;
+		*a = (*a)->next;
+		last = *a;
+		while(last->next)
+			last = last->next;
+		last->next = tmp;
+		tmp->next = NULL;
+		write(1, "ra\n", 3);
+	}
+}
+
+void	rb(t_stack **b)
+{
+	t_stack	*tmp;
+	t_stack	*last;
+
+	if(*b || (*b)->next)
+	{
+		tmp = *b;
+		*b = (*b)->next;
+		last = *b;
+		while(last->next)
+			last = last->next;
+		last->next = tmp;
+		tmp->next = NULL;
+		write(1, "rb\n", 3);
+	}
+}
 
 /* void push(t_stack *src, t_stack *dst)
 {
