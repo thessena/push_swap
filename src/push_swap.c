@@ -6,14 +6,10 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/12 17:10:38 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:09:47 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <limits.h>
 #include "../include/push_swap.h"
 
 static void	convert_to_digits(int n, char *num, int *i)
@@ -40,7 +36,6 @@ void	print_stack(t_stack *stack)
 
 	while (stack)
 	{
-		i = 0;
 		n = stack->value;
 		if (n < 0)
 		{
@@ -77,6 +72,12 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	print_stack(a);
+	pb(&a, &b);
+	pb(&a, &b);
+	pb(&a, &b);
+	pb(&a, &b);
+	pb(&a, &b);
+	print_stack(b);
 	free_stack(a);
 	return (0);
 }

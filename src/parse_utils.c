@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 17:05:34 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/12 17:30:27 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:13:22 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ long	ft_atoi(const char *str)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		result = result * 10 + (str[i++] - '0');
+		result = result * 10 + (str[i] - '0');
 		i++;
 	}
 	return (sign * result);

@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:37:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/12 17:31:33 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:34:23 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		stack_size(t_stack *stack);
 void	free_stack(t_stack *stack);
 void	print_stack(t_stack *stack);
 
+void	pb(t_stack **a, t_stack **b);
+void	pa(t_stack **a, t_stack **b);
 /* void	push_swap(t_stack *stack_a, t_stack *stack_b);
 void	push(t_stack *src, t_stack *dst);
 void	swap(t_stack *stack);
