@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 17:09:10 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/13 19:12:59 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:14:24 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,15 @@ void	sb(t_stack **b)
 		write(1, "sb\n", 3);
 	}
 }
+
+void	ss(t_stack **a, t_stack **b)
+{
+	sa(a);
+	sb(b);
+	write(1, "ss\n", 3);
+}
+
+
 
 /* void push(t_stack *src, t_stack *dst)
 {
