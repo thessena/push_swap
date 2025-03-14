@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/14 19:07:37 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:21:12 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,32 @@ int	find_position_in_b(t_stack *b, int value)
 		tmp = tmp->next;
 	}
 	return (pos);
+}
+
+void	rotate_to_position(t_stack **b, int pos, int b_size)
+{
+	int	i;
+
+	if (pos == 0)
+		return;
+	if (pos <= b_size / 2)
+	{
+		i = pos;
+		while (i > 0)
+		{
+			rb(b);
+			i--;
+		}
+	}
+	else
+	{
+		i = b_size - pos;
+		while (i > 0)
+		{
+			rrb(b);
+			i--;
+		}
+	}
 }
 
 void	turk_sort(t_stack **a, t_stack **b)
@@ -59,34 +85,32 @@ void	turk_sort(t_stack **a, t_stack **b)
 	}
 	pb(a, b);
 	pb(a, b);
-	if ((*b)->value < (*b)->next->value)
+	if (*b && (*b)->next && (*b)->value < (*b)->next->value)
 		sb(b);
 	while (stack_size(*a) > 0)
 	{
 		value = (*a)->value;
 		pos = find_position_in_b(*b, value);
 		b_size = stack_size(*b);
-		if (pos <= b_size / 2)
-		{
-			while (pos > 0)
-			{
-				rb(b);
-				pos--;
-			}
-			pb(a, b);
-		}
-		else
-		{
-			while (b_size - pos > 0)
-			{
-				rrb(b);
-				pos--;
-			}
-			pb(a, b);
-		}
-		while (*b && (*b)->next && (*b)->value < (*b)->next->value)
-			sb(b);
-	}
+		rotate_to_position(b, pos, b_size);
+		pb(a, b);
+		while (stack_size(*b) > 1 && find_position_in_b(*b, stack_max(*b)) > 0)
+			rb(b);
+	}	
 	while (*b)
 		pa(a, b);
+}
+
+int	stack_max(t_stack *stack)
+{
+	int	max;
+	
+	max = stack->value;
+	while (stack)
+	{
+		if (stack->value > max)
+			max = stack->value;
+		stack = stack->next;
+	}
+	return (max);
 }
