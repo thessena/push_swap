@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/13 19:38:07 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/14 10:49:45 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,19 @@ int	main(int argc, char **argv)
 		write(1, "Error\n", 6);
 		return (1);
 	}
-	a = NULL;
-	b = NULL;
 	a = init_stack(argc, argv);
+	b = NULL;
 	if (!a)
 	{
 		write(1, "Error\n", 6);
 		return (1);
 	}
-	write(1, "Initial a:\n", 11);
-    print_stack(a);
-    pb(&a, &b);
-    write(1, "a nach pb:\n", 11);
-    print_stack(a);
-    write(1, "b nach pb:\n", 11);
-    print_stack(b);
-    sa(&a);
-    write(1, "a nach sa:\n", 11);
-    print_stack(a);
-    pa(&a, &b);
-    write(1, "a nach pa:\n", 11);
-    print_stack(a);
+	write(1, "Vor Sortierung:\n", 16);
+	print_stack(a);
+	sort_three(&a);
+	write(1, "Nach Sortierung:\n", 17);
+	print_stack(a);
 	free_stack(a);
+	free_stack(b);
 	return (0);
 }

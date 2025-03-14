@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:37:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/13 19:40:20 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/14 11:18:11 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_stack	*init_stack(int argc, char **argv);
 int		stack_size(t_stack *stack);
 void	free_stack(t_stack *stack);
 void	print_stack(t_stack *stack);
+void	sort_three(t_stack **a);
 
 void	pb(t_stack **a, t_stack **b);
 void	pa(t_stack **a, t_stack **b);
