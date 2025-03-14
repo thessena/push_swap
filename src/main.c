@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/14 10:49:45 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:35:14 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	main(int argc, char **argv)
 	}
 	write(1, "Vor Sortierung:\n", 16);
 	print_stack(a);
-	sort_three(&a);
+	turk_sort(&a, &b);
 	write(1, "Nach Sortierung:\n", 17);
 	print_stack(a);
 	free_stack(a);

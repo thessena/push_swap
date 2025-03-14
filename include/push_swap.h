@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:37:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/14 11:18:11 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:36:30 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_stack	*init_stack(int argc, char **argv);
 int		stack_size(t_stack *stack);
 void	free_stack(t_stack *stack);
 void	print_stack(t_stack *stack);
-void	sort_three(t_stack **a);
 
 void	pb(t_stack **a, t_stack **b);
 void	pa(t_stack **a, t_stack **b);
@@ -45,5 +44,13 @@ void	rr(t_stack **a, t_stack **b);
 void	rra(t_stack **a);
 void	rrb(t_stack **b);
 void	rrr(t_stack **a, t_stack **b);
+
+void	sort_three(t_stack **a);
+int		find_min(t_stack *stack);
+void	move_min_to_top(t_stack **a);
+void	sort_four(t_stack **a, t_stack **b);
+void	sort_five(t_stack **a, t_stack **b);
+int		find_position_in_b(t_stack *b, int value);
+void	turk_sort(t_stack **a, t_stack **b);
 
 #endif
