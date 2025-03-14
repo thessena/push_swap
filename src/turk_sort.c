@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/14 19:39:18 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:43:54 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,20 @@ int	find_position_in_b(t_stack *b, int value)
 		tmp = tmp->next;
 	}
 	return (pos);
+}
+
+int	stack_max(t_stack *stack)
+{
+	int	max;
+
+	max = stack->value;
+	while (stack)
+	{
+		if (stack->value > max)
+			max = stack->value;
+		stack = stack->next;
+	}
+	return (max);
 }
 
 int	find_max_position(t_stack *b)
@@ -138,18 +152,4 @@ void	turk_sort(t_stack **a, t_stack **b)
 	}
 	while (*b)
 		pa(a, b);
-}
-
-int	stack_max(t_stack *stack)
-{
-	int	max;
-
-	max = stack->value;
-	while (stack)
-	{
-		if (stack->value > max)
-			max = stack->value;
-		stack = stack->next;
-	}
-	return (max);
 }
