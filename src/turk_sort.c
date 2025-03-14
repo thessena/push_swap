@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/14 19:21:12 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:27:04 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,50 @@ int	find_position_in_b(t_stack *b, int value)
 		tmp = tmp->next;
 	}
 	return (pos);
+}
+
+int	find_max_position(t_stack *b)
+{
+	int		max;
+	int		pos;
+	t_stack	*tmp;
+
+	max = stack_max(b);
+	pos = 0;
+	tmp = b;
+	while (tmp && tmp->value != max)
+	{
+		pos++;
+		tmp = tmp->next;
+	}
+	return pos;
+}
+
+void	rotate_to_max(t_stack **b, int	b_size)
+{
+	int	pos;
+	int	steps;
+	
+	pos = find_max_position(*b);
+	if (pos == 0)
+		return;
+	if (pos <= b_size / 2)
+	{
+		while (pos > 0)
+		{
+			rb(b);
+			pos--;
+		}
+	}
+	else
+	{
+		steps = b_size - pos;
+		while (steps > 0)
+		{
+			rrb(b);
+			steps--;
+		}
+	}
 }
 
 void	rotate_to_position(t_stack **b, int pos, int b_size)
@@ -94,8 +138,7 @@ void	turk_sort(t_stack **a, t_stack **b)
 		b_size = stack_size(*b);
 		rotate_to_position(b, pos, b_size);
 		pb(a, b);
-		while (stack_size(*b) > 1 && find_position_in_b(*b, stack_max(*b)) > 0)
-			rb(b);
+		rotate_to_max(b, stack_size(*b));
 	}	
 	while (*b)
 		pa(a, b);
