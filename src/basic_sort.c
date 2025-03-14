@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort.c                                             :+:      :+:    :+:   */
+/*   basic_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 10:50:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/14 15:19:42 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:37:16 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ void	sort_three(t_stack **a)
 		top = (*a)->value;
 		middle = (*a)->next->value;
 		bottom = (*a)->next->next->value;
-		if (top > middle && top > bottom) // 3 2 1 || 3 1 2
+		if (top > middle && top > bottom)
 		{
 			ra(a);
 		}
-		else if (middle > top && middle > bottom) // 2 3 1 || 1 3 2
+		else if (middle > top && middle > bottom)
 		{
 			sa(a);
 			ra(a);
 		}
-		if ((*a)->value > (*a)->next->value) // 2 1 3
+		if ((*a)->value > (*a)->next->value)
 		{
 			sa(a);
 		}
@@ -50,12 +50,12 @@ int	find_min(t_stack *stack)
 			min = stack->value;
 		stack = stack->next;
 	}
-	return(min);
+	return (min);
 }
 
 void	move_min_to_top(t_stack **a)
 {
-	t_stack *tmp;
+	t_stack	*tmp;
 	int		min;
 	int		pos;
 	int		size;
@@ -71,7 +71,7 @@ void	move_min_to_top(t_stack **a)
 		tmp = tmp->next;
 		pos++;
 	}
-	if (pos <= size/2)
+	if (pos <= size / 2)
 	{
 		while (i < pos)
 		{
@@ -102,7 +102,7 @@ void	sort_four(t_stack **a, t_stack **b)
 
 void	sort_five(t_stack **a, t_stack **b)
 {
-	if(*a || stack_size(*a) == 5)
+	if (*a || stack_size(*a) == 5)
 	{
 		move_min_to_top(a);
 		pb(a, b);
