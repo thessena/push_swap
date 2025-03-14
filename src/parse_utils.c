@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 17:05:34 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/13 15:13:22 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:03:38 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,18 @@ t_stack	*init_stack(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if (!is_valid_number(argv[i]))
-		{
-			free_stack(a);
-			return (NULL);
-		}
 		num = ft_atoi(argv[i]);
 		if (num > INT_MAX || num < INT_MIN || has_duplicate(a, num))
 		{
 			free_stack(a);
 			return (NULL);
 		}
-		append_node(&a, num);
+		append_node(&a, (int)num);
+		if (!a)
+		{
+			free_stack(a);
+			return (NULL);
+		}
 		i++;
 	}
 	return (a);

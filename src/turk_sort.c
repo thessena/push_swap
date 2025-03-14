@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/14 17:24:24 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/14 19:07:37 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ void	turk_sort(t_stack **a, t_stack **b)
 		sort_three(a);
 		return;
 	}
+	if (size == 4)
+	{
+		sort_four(a, b);
+		return;
+	}
+	if (size == 5)
+	{
+		sort_five(a, b);
+		return;
+	}
 	pb(a, b);
 	pb(a, b);
 	if ((*b)->value < (*b)->next->value)
@@ -63,13 +73,7 @@ void	turk_sort(t_stack **a, t_stack **b)
 				rb(b);
 				pos--;
 			}
-			pos = find_position_in_b(*b, value);
 			pb(a, b);
-			while (pos > 0)
-			{
-				rrb(b);
-				pos--;
-			}
 		}
 		else
 		{
@@ -79,12 +83,9 @@ void	turk_sort(t_stack **a, t_stack **b)
 				pos--;
 			}
 			pb(a, b);
-			while (b_size - pos > 0)
-			{
-				rb(b);
-				pos--;
-			}
 		}
+		while (*b && (*b)->next && (*b)->value < (*b)->next->value)
+			sb(b);
 	}
 	while (*b)
 		pa(a, b);
