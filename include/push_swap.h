@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:37:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/14 19:15:43 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:38:54 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ int		find_min(t_stack *stack);
 void	move_min_to_top(t_stack **a);
 void	sort_four(t_stack **a, t_stack **b);
 void	sort_five(t_stack **a, t_stack **b);
+int		find_position_in_a(t_stack *a, int value);
 int		find_position_in_b(t_stack *b, int value);
 void	turk_sort(t_stack **a, t_stack **b);
-void	rotate_to_position(t_stack **b, int pos, int b_size);
+void	rotate_to_position(t_stack **a, t_stack **b, int pos_a, int pos_b, int a_size, int b_size);
 int		stack_max(t_stack *stack);
 
 #endif
