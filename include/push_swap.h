@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:37:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/19 10:50:43 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:13:45 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>
+# include <stdio.h>
 
 typedef struct s_stack
 {
 	int				value;
 	int				index;
 	struct s_stack	*next;
+	struct s_stack	*prev;
+	struct s_stack	*target;
+	int				cost;
 }	t_stack;
 
 t_stack	*create_node(int value);
@@ -56,5 +60,13 @@ int		find_position_in_b(t_stack *b, int value);
 void	turk_sort(t_stack **a, t_stack **b);
 void	rotate_to_position(t_stack **a, t_stack **b, int pos_a, int pos_b, int a_size, int b_size);
 int		stack_max(t_stack *stack);
+
+void	smart_sort(t_stack **main, t_stack **helper);
+void	assign_next_smaller(t_stack **main, t_stack **helper);
+void	order_three(t_stack **list);
+t_stack	*find_lowest(t_stack **list);
+t_stack	*find_highest(t_stack **list);
+int		get_list_size(t_stack *list);
+int		is_in_order(t_stack **list);
 
 #endif

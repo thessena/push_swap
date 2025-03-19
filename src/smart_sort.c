@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:46:53 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/19 11:37:44 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:19:43 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ int	get_list_size(t_stack *list)
 
 t_stack	*find_highest(t_stack **list)
 {
-	t_stack	*highest = *list;
-	t_stack	*current = *list;
+	t_stack	*highest;
+	t_stack	*current;
+
+	highest = *list;
+	current = *list;
 	while (current)
 	{
 		if (current->value > highest->value)
@@ -48,6 +51,22 @@ t_stack	*find_highest(t_stack **list)
 		current = current->next;
 	}
 	return (highest);
+}
+
+t_stack	*find_lowest(t_stack **list)
+{
+	t_stack	*lowest;
+	t_stack	*current;
+	
+	lowest = *list;
+	current = *list;
+	while (current)
+	{
+		if (current->value < lowest->value)
+			lowest = current;
+		current = current->next;
+	}
+	return (lowest);
 }
 
 void	order_three(t_stack **list)
@@ -61,12 +80,40 @@ void	order_three(t_stack **list)
 		sa(list);
 }
 
+void	assign_next_smaller(t_stack **main, t_stack **helper)
+{
+	t_stack	*m;
+	t_stack	*h;
+	int	smallest_diff;
+
+	m = *main;
+	while (main && *main)
+	{
+		h = *helper;
+		smallest_diff = INT_MAX;
+		(*main)->target = NULL;
+		while (h)
+		{
+			if (h->value < (*main)->value && ((*main)->value - h->value) < smallest_diff)
+			{
+				smallest_diff = (*main)->value - h->value;
+				(*main)->target = h;
+			}
+			h = h->next;
+		}
+		if (!(*main)->target)
+			(*main)->target = find_highest(helper);
+		main = &(*main)->next;
+	}
+}
+
 void	smart_sort(t_stack **main, t_stack **helper)
 {
 	int		i;
 	t_stack	*current;
 	
 	i = 0;
+	current = *main;
 	while (current)
 	{
 		current->index = i++;
@@ -97,7 +144,28 @@ void	smart_sort(t_stack **main, t_stack **helper)
 			current->index = i++;
 			current = current->next;
 		}
+		assign_next_smaller(main, helper);
+		print_stack(*main);
 		pb(main, helper);
+		printf("%s", "ich war hier");
 	}
 	order_three(main);
+	while (*helper)
+	{
+		i = 0;
+		current = *main;
+		while (current)
+		{
+			current->index = i++;
+			current = current->next;
+		}
+		i = 0;
+		current = *helper;
+		while (current)
+		{
+			current->index = i++;
+			current = current->next;
+		}
+		assign_next_largert(main, helper);
+	}
 }
