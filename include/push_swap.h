@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:37:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/17 17:38:54 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:50:43 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct s_stack
 {
 	int				value;
+	int				index;
 	struct s_stack	*next;
 }	t_stack;
 
