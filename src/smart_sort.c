@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:46:53 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/19 16:19:43 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/19 16:53:32 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	assign_next_smaller(t_stack **main, t_stack **helper)
 {
 	t_stack	*m;
 	t_stack	*h;
-	int	smallest_diff;
+	int		smallest_diff;
 
 	m = *main;
 	while (main && *main)
@@ -104,6 +104,59 @@ void	assign_next_smaller(t_stack **main, t_stack **helper)
 		if (!(*main)->target)
 			(*main)->target = find_highest(helper);
 		main = &(*main)->next;
+	}
+}
+
+void	assign_next_larger(t_stack **main, t_stack **helper)
+{
+	t_stack	*m;
+	t_stack	*h;
+	int		smallest_diff;
+
+	m = *main;
+	while (helper && *helper)
+	{
+		h = *main;
+		smallest_diff = INT_MAX;
+		(*helper)->target = NULL;
+		while (h)
+		{
+			if (h->value > (*helper)->value && (h->value - (*helper)->value) < smallest_diff)
+			{
+				smallest_diff = h->value - (*helper)->value;
+				(*helper)->target = h;
+			}
+			h = h->next;
+		}
+		if (!(*helper)->target)
+			(*helper)->target = find_lowest(main);
+		helper = &(*helper)->next;
+	}
+}
+
+void	evalute_costs(t_stack **main, t_stack **helper)
+{
+	int		main_size;
+	int		helper_size;
+	t_stack	*current;
+	int		main_cost;
+	int		helper_cost;
+
+	main_size = get_list_size(*main);
+	helper_size = get_list_size(*helper);
+	current = *main;
+	while (current)
+	{
+		if (current->index <= main_size / 2)
+			main_cost = current->index;
+		else
+			main_cost = main_size - current->index;
+		if (current->target->index <= helper_size / 2)
+			helper_cost = current->target->index;
+		else
+			helper_cost = helper_size - current->target->index;
+		current->cost = main_cost + helper_cost;
+		current = current->next;
 	}
 }
 
@@ -166,6 +219,7 @@ void	smart_sort(t_stack **main, t_stack **helper)
 			current->index = i++;
 			current = current->next;
 		}
-		assign_next_largert(main, helper);
+		assign_next_larger(main, helper);
+		printf("%s", "ich war hier");
 	}
 }

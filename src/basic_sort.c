@@ -5,111 +5,90 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/14 10:50:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/14 19:37:16 by thessena         ###   ########.fr       */
+/*   Created: 2025/03/19 17:01:06 by thessena          #+#    #+#             */
+/*   Updated: 2025/03/19 17:12:28 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	sort_three(t_stack **a)
+int	count_elements(t_stack *list)
 {
-	int	top;
-	int	middle;
-	int	bottom;
-
-	if (*a || (*a)->next || (*a)->next->next || (*a)->next->next->next)
+	int	count;
+	
+	count = 0;
+	while (list)
 	{
-		top = (*a)->value;
-		middle = (*a)->next->value;
-		bottom = (*a)->next->next->value;
-		if (top > middle && top > bottom)
-		{
-			ra(a);
-		}
-		else if (middle > top && middle > bottom)
-		{
-			sa(a);
-			ra(a);
-		}
-		if ((*a)->value > (*a)->next->value)
-		{
-			sa(a);
-		}
+		count++;
+		list = list->next;
 	}
+	return (count);
 }
 
-int	find_min(t_stack *stack)
+int	is_sortet_basic(t_stack **list)
 {
-	int	min;
+	t_stack	*current;
 
-	min = stack->value;
-	while (stack)
+	current = *list;
+	while (current && current->next)
 	{
-		if (stack->value < min)
-			min = stack->value;
-		stack = stack->next;
+		if (current->value > current->next->value)
+			return (0);
+		current = current->next;
 	}
-	return (min);
+	return (1);
 }
 
-void	move_min_to_top(t_stack **a)
+void	sort_small(t_stack **list)
 {
-	t_stack	*tmp;
-	int		min;
-	int		pos;
+	t_stack	*current;
+	t_stack	*max_node;
+
+	current = *list;
+	max_node = current;
+	while (current)
+	{
+		if (current->value > max_node->value)
+			max_node = current;
+		current = current->next;
+	}
+	if (max_node == *list)
+		ra(list);
+	else if (max_node == (*list)->next)
+		rra(list);
+	if ((*list)->value > (*list)->next->value)
+		sa(list);
+}
+
+void	move_smallest_front(t_stack **list)
+{
+	t_stack *current;
+	t_stack	*min_node;
 	int		size;
-	int		i;
+	int		min_pos;
+	int		pos;
 
-	tmp = *a;
-	min = find_min(*a);
+	current = *list;
+	min_node = current;
+	size = count_elements(*list);
+	min_pos = 0;
 	pos = 0;
-	size = stack_size(*a);
-	i = 0;
-	while (tmp && tmp->value != min)
+	while (current)
 	{
-		tmp = tmp->next;
+		if (current->value < min_node->value)
+		{
+			min_node = current;
+			min_pos = pos;
+		}
+		current = current->next;
 		pos++;
 	}
-	if (pos <= size / 2)
-	{
-		while (i < pos)
-		{
-			ra(a);
-			i++;
-		}
-	}
+	if (min_pos <= size / 2)
+		while (min_node != *list)
+			ra(list);
 	else
-	{
-		while (i < size - pos)
-		{
-			rra(a);
-			i++;
-		}
-	}
+		while (min_node != *list)
+			rra(list);
 }
 
-void	sort_four(t_stack **a, t_stack **b)
-{
-	if (*a || stack_size(*a) == 4)
-	{
-		move_min_to_top(a);
-		pb(a, b);
-		sort_three(a);
-		pa(a, b);
-	}
-}
 
-void	sort_five(t_stack **a, t_stack **b)
-{
-	if (*a || stack_size(*a) == 5)
-	{
-		move_min_to_top(a);
-		pb(a, b);
-		move_min_to_top(a);
-		pb(a, b);
-		sort_three(a);
-		pa(a, b);
-		pa(a, b);
-	}
-}
