@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/21 18:38:45 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:15:03 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,11 @@ void	turk_sort(t_stack **a, t_stack **b)
 	{
 		sa(a);
 		return ;
+	}
+	if (!is_sorted(*a) && get_list_size(*a) == 3)
+	{
+		sort_three(a);
+		return;
 	}
 	i = 0;
 	current = *a;

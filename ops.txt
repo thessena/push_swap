@@ -1,13 +1,7 @@
 Vor Sortierung:
-1
-3
 2
-pb
-pb
-pa
-ra
-pa
+1
+sa
 Nach Sortierung:
 1
 2
-3

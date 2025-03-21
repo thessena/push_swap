@@ -39,7 +39,8 @@ if [ -z "$2" ];then
 else
 	n=$2;
 fi
-ARG=$(ruby -e "puts (0..($n)).to_a.shuffle.join(' ')"); ./push_swap $ARG > operations.txt; cat operations.txt | ./pro_checker $ARGexit 0
+ARG=$(ruby -e "puts (0..($n)).to_a.shuffle.join(' ')"); ./push_swap $ARG | ./pro_checker $ARG
+exit 0
 fi
 
 if [ $1 == -v2 ];then
