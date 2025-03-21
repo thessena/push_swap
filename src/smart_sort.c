@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:46:53 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/21 11:50:44 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:57:47 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,43 @@ void	align_bottom(t_stack **main, t_stack **helper, t_stack *best)
 	}
 }
 
+void	adjust_positions(t_stack **main, t_stack **helper, t_stack *best)
+{
+	int	main_size;
+	int	helper_size;
+	int	main_moves;
+	int	helper_moves;
+
+	main_size = get_list_size(*main);
+	helper_size = get_list_size(*helper);
+	main_moves = best->index;
+	helper_moves = best->target->index;
+	if (main_moves <= main_size / 2)
+		while (main_moves > 0)
+		{
+			ra(main);
+			main_moves--;
+		}
+	else
+		while (main_moves < main_size)
+		{
+			rra(main);
+			main_moves++;
+		}
+	if (helper_moves <= helper_size / 2)
+		while (helper_moves > 0)
+		{
+			rb(helper);
+			helper_moves--;
+		}
+	else
+		while (helper_moves < helper_size)
+		{
+			rrb(helper);
+			helper_moves++;
+		}
+}
+
 void	transfer_to_helper(t_stack	**main, t_stack **helper)
 {
 	int		main_size;
@@ -243,6 +280,8 @@ void	transfer_to_helper(t_stack	**main, t_stack **helper)
 		align_top(main, helper, best_move);
 	else if (best_move->index > main_size / 2 && best_move->target->index > helper_size / 2)
 		align_bottom(main, helper, best_move);
+	else
+		adjust_positions(main, helper, best_move);
 }
 
 position_smallest(t_stack **main)
