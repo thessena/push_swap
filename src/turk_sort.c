@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/21 18:05:55 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:35:14 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,4 +218,53 @@ void	sort_three(t_stack **list)
 		rra(list);
 	if (!is_sorted(*list))
 		sa(*list);
+}
+
+void	move_from_a_to_b(t_stack **a, t_stack **b)
+{
+	int		size_a;
+	int		size_b;
+	t_stack	*cheapest;
+
+	size_a = get_list_size(*a);
+	size_b = get_list_size(*b);
+	calc_cheapest(*a, *b);
+	cheapest = get_cheapest_node(*a);
+	if (cheapest->index <= size_a / 2 && cheapest->target->index <= size_b / 2)
+		rotate_if_both_above_mid(a, b, cheapest);
+	else if (cheapest->index > size_a / 2 && cheapest->target->index > size_b / 2)
+		rotate_if_both_below_mid(a, b, cheapest);
+	else
+		rotate_seperate(a, b, cheapest);
+}
+
+void	move_from_b_to_a(t_stack **a, t_stack **b)
+{
+	int	size_a;
+
+	size_a = get_list_size(*a);
+	if (!*b || !(*b)->target)
+		return ;
+	if ((*b)->target->index <= size_a / 2)
+		while ((*b)->target != *a)
+			ra(a);
+	else
+		while ((*b)->target != *a)
+			rra(a);
+	pa(a, b);
+}
+
+void	move_min_to_top(t_stack **a)
+{
+	int		size_a;
+	t_stack	*min;
+
+	size_a = get_list_size(*a);
+	min = get_min_node(*a);
+	if (min->index <= size_a / 2)
+		while (min != *a)
+			ra(a);
+	else
+		while (min != *a)
+			rra(a);
 }
