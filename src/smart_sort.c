@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:46:53 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/21 10:51:45 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:42:34 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,31 @@ t_stack	*pick_best_move(t_stack **list)
 	return (best);
 }
 
+void	align_top(t_stack **main, t_stack **helper, t_stack *best)
+{
+	int	main_moves;
+	int	helper_moves;
+	
+	main_moves = best->index;
+	helper_moves = best->target->index;
+	while (main_moves > 0 && helper_moves > 0)
+	{
+		rr(main, helper);
+		main_moves--;
+		helper_moves--;
+	}
+	while (main_moves > 0)
+	{
+		ra(main);
+		main_moves--;
+	}
+	while (helper_moves > 0)
+	{
+		rb(helper);
+		helper_moves--;
+	}
+}
+
 void	transfer_to_helper(t_stack	**main, t_stack **helper)
 {
 	int		main_size;
@@ -185,6 +210,8 @@ void	transfer_to_helper(t_stack	**main, t_stack **helper)
 	helper_size = get_list_size(*helper);
 	evalute_costs(main, helper);
 	best_move = pick_best_move(main);
+	if (best_move->index <= main_size / 2 && best_move->target->index <= helper_size / 2)
+		align_top(main, helper, best_move);
 }
 
 position_smallest(t_stack **main)
