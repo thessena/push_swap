@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/21 18:35:14 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:38:45 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ void	calc_cheapest(t_stack *a, t_stack *b)
 
 	size_a = get_list_size(a);
 	size_b = get_list_size(b);
-	*current = *a;
+	current = a;
 	while (current)
 	{
 		if (current->index <= size_a / 2)
@@ -217,7 +217,7 @@ void	sort_three(t_stack **list)
 	else if (max->index == 1)
 		rra(list);
 	if (!is_sorted(*list))
-		sa(*list);
+		sa(list);
 }
 
 void	move_from_a_to_b(t_stack **a, t_stack **b)
@@ -267,4 +267,69 @@ void	move_min_to_top(t_stack **a)
 	else
 		while (min != *a)
 			rra(a);
+}
+
+void	turk_sort(t_stack **a, t_stack **b)
+{
+	int		i;
+	t_stack	*current;
+
+	if (is_sorted(*a))
+		return ;
+	if (!is_sorted(*a) && get_list_size(*a) == 2)
+	{
+		sa(a);
+		return ;
+	}
+	i = 0;
+	current = *a;
+	while (current)
+	{
+		current->index = i++;
+		current = current->next;
+	}
+	pb(a, b);
+	pb(a, b);
+	while (get_list_size(*a) > 3)
+	{
+		i = 0;
+		current = *a;
+		while (current)
+		{
+			current->index = i++;
+			current = current->next;
+		}
+		i = 0;
+		current = *b;
+		while (current)
+		{
+			current->index = i++;
+			current = current->next;
+		}
+		set_nearest_smaller_target(a, b);
+		move_from_a_to_b(a, b);
+		pb(a, b);
+	}
+	sort_three(a);
+	while (*b)
+	{
+		i = 0;
+		current = *a;
+		while (current)
+		{
+			current->index = i++;
+			current = current->next;
+		}
+		i = 0;
+		current = *b;
+		while (current)
+		{
+			current->index = i++;
+			current = current->next;
+		}
+		set_nearest_bigger_target(a, b);
+		move_from_b_to_a(a, b);
+	}
+	if (!is_sorted(*a))
+		move_min_to_top(a);
 }
