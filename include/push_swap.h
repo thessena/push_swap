@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:37:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/19 17:49:19 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:43:58 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ t_stack	*find_highest(t_stack **list);
 int		get_list_size(t_stack *list);
 int		is_in_order(t_stack **list);
 
-void	basic_sort(t_stack **main, t_stack **helper);
 
 
 #endif
