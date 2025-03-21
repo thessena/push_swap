@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:26:38 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/21 17:32:56 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/21 17:44:37 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,11 @@ int	main(int argc, char **argv)
 	}
 	a = init_stack(argc, argv);
 	b = NULL;
-/* 	if (!a)
-	{
-		write(1, "Error\n", 6);
-		return (1);
-	} */
 	write(1, "Vor Sortierung:\n", 16);
 	print_stack(a);
 	turk_sort(&a, &b);
 	write(1, "Nach Sortierung:\n", 17);
 	print_stack(a);
-	// print_stack(b);
 	free_stack(a);
 	free_stack(b);
 	return (0);
