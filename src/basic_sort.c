@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 17:01:06 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/19 17:12:28 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:48:45 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,41 @@ void	move_smallest_front(t_stack **list)
 			rra(list);
 }
 
+void	basic_sort(t_stack **main, t_stack **helper)
+{
+	t_stack	*current;
+	int		i;
 
+	if (is_sortet_basic(main))
+		return;
+	if (count_elements(*main) == 2 && !is_sortet_basic(main))
+	{
+		sa(main);
+		return;
+	}
+	pb(main, helper);
+	pb(main, helper);
+	while (count_elements(*main) > 3)
+		pb(main, helper);
+	sort_small(main);
+	while (*helper)
+	{
+		i = 0;
+		current = *main;
+		while (current)
+		{
+			current->index = i++;
+			current = current->next;
+		}
+		i = 0;
+		current = *helper;
+		while (current)
+		{
+			current->index = i++;
+			current = current->next;
+		}
+		pa(main, helper);
+	}
+	if (!is_sortet_basic(main))
+		move_smallest_front(main);
+}

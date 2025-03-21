@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:46:53 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/19 16:53:32 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/21 10:51:45 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,48 @@ void	evalute_costs(t_stack **main, t_stack **helper)
 		current = current->next;
 	}
 }
+t_stack	*pick_best_move(t_stack **list)
+{
+	t_stack	*best;
+	t_stack	*current;
+	
+	best = *list;
+	current = *list;
+	while (current)
+	{
+		if (current->cost < best->cost)
+			best = current;
+		current = current->next;
+	}
+	return (best);
+}
+
+void	transfer_to_helper(t_stack	**main, t_stack **helper)
+{
+	int		main_size;
+	int		helper_size;
+	t_stack	*best_move;
+
+	main_size = get_list_size(*main);
+	helper_size = get_list_size(*helper);
+	evalute_costs(main, helper);
+	best_move = pick_best_move(main);
+}
+
+position_smallest(t_stack **main)
+{
+	int		main_size;
+	t_stack	*smallest;
+
+	main_size = get_list_size(*main);
+	smallest = find_lowest(main);
+	if (smallest->index <= main_size / 2)
+		while (smallest != *main)
+			ra(main);
+	else
+		while (smallest != *main)
+			rra(main);
+}
 
 void	smart_sort(t_stack **main, t_stack **helper)
 {
@@ -222,4 +264,6 @@ void	smart_sort(t_stack **main, t_stack **helper)
 		assign_next_larger(main, helper);
 		printf("%s", "ich war hier");
 	}
+	if (!is_in_order(main))
+		position_smallest(main);
 }
