@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 17:05:34 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/14 19:03:38 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:13:37 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,36 @@ int	has_duplicate(t_stack *stack, int value)
 	return (0);
 }
 
-long	ft_atoi(const char *str)
+int	is_space(char c)
+{
+    return (c == ' ' || (c >= 9 && c <= 13));
+}
+
+char	**split_args(char *arg, int *count)
+{
+	int		i;
+	int		words;
+	char	**result;
+
+	i = 0;
+	words = 0;
+	while (arg[i])
+	{
+		while (is_space(arg[i]))
+			i++;
+		if (arg[i])
+			words++;
+		while (arg[i] && !is_space(arg[i]))
+			i++;
+	}
+	result = malloc(sizeof(char *) * (words + 1));
+	if (!result)
+		return (NULL);
+	*count = words;
+	return (result);
+}
+
+long	ft_atol(const char *str)
 {
 	long	result;
 	int		sign;
@@ -72,29 +101,96 @@ long	ft_atoi(const char *str)
 	return (sign * result);
 }
 
+void	free_split(char **split)
+{
+	int	i;
+	
+	i = 0;
+	if (!split)
+		return ;
+	while (split[i])
+		free(split[i++]);
+	free(split);
+}
+
 t_stack	*init_stack(int argc, char **argv)
 {
 	t_stack	*a;
-	int		i;
 	long	num;
+	int		i;
+	char	**numbers;
+	int		count;
 
 	a = NULL;
-	i = 1;
-	while (i < argc)
+	if (argc < 2)
+		return (NULL);
+	if (argc == 2)
 	{
-		num = ft_atoi(argv[i]);
-		if (num > INT_MAX || num < INT_MIN || has_duplicate(a, num))
+		numbers = split_args(argv[1], &count);
+		if (!numbers)
 		{
-			free_stack(a);
+			write(2, "Error\n", 6);
 			return (NULL);
 		}
-		append_node(&a, (int)num);
-		if (!a)
+		i = 0;
+		while (i < count)
 		{
-			free_stack(a);
-			return (NULL);
+			if (!is_valid_number(numbers[i]))
+			{
+				free_split(numbers);
+				free_stack(a);
+				write(2, "Error\n", 6);
+				return (NULL);
+			}
+			num = ft_atol(numbers[i]);
+			if (num > INT_MAX || num < INT_MIN || has_duplicate(a, num))
+			{
+				free_split(numbers);
+				free_stack(a);
+				write(2, "Error\n", 6);
+				return (NULL);
+			}
+			append_node(&a, (int)num);
+			if (!a)
+			{
+				free_split(numbers);
+				free_stack(a);
+				write(2, "Error\n", 6);
+				return (NULL);
+		
+			}
+			i++;
 		}
-		i++;
+		free_split(numbers);
+	}
+	else
+	{
+		i = 1;
+		while (i < argc)
+		{
+			if (!is_valid_number(argv[i]))
+			{
+				free_stack(a);
+				write(2, "Error\n", 6);
+				return (NULL);
+			}
+			num = ft_atol(argv[i]);
+			if (num > INT_MAX || num < INT_MIN || has_duplicate(a, num))
+			{
+				free_stack(a);
+				write(2, "Error\n", 6);
+				return (NULL);
+			}
+			append_node(&a, (int)num);
+			if (!a)
+			{
+				free_stack(a);
+				write(2, "Error\n", 6);
+				return (NULL);
+			}
+			i++;
+		}
 	}
 	return (a);
 }
+	

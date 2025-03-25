@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:37:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/21 18:58:00 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/25 14:57:00 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_stack	*create_node(int value);
 void	append_node(t_stack **stack, int value);
 int		is_valid_number(char *str);
 int		has_duplicate(t_stack *stack, int value);
-long	ft_atoi(const char *str);
+long	ft_atol(const char *str);
 t_stack	*init_stack(int argc, char **argv);
 int		stack_size(t_stack *stack);
 void	free_stack(t_stack *stack);

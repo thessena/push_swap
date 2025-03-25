@@ -1,7 +1,0 @@
-Vor Sortierung:
-2
-1
-sa
-Nach Sortierung:
-1
-2
