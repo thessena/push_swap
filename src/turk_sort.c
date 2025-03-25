@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/21 19:15:03 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/25 18:22:35 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,23 +36,23 @@ int	is_sorted(t_stack *list)
 	return (1);
 }
 
-t_stack	*get_max_node(t_stack *list)
+t_stack *get_max_node(t_stack *list)
 {
-	t_stack	*max;
+    t_stack *max;
 
-	max = list;
-	while (list)
-	{
-		if (list->value > max->value)
-			max = list;
-		list = list->next;
-	}
-	return (max);
+    max = list;
+    while (list)
+    {
+        if (list->value < max->value)
+            max = list;
+        list = list->next;
+    }
+    return (max);
 }
 
-t_stack	*get_min_node(t_stack *list)
+t_stack *get_min_node(t_stack *list)
 {
-	t_stack	*min;
+	t_stack *min;
 
 	min = list;
 	while (list)
@@ -209,15 +209,60 @@ void	rotate_seperate(t_stack **a, t_stack **b, t_stack *cheapest)
 
 void	sort_three(t_stack **list)
 {
-	t_stack	*max;
+	int a = (*list)->value;
+	int b = (*list)->next->value;
+	int c = (*list)->next->next->value;
 
-	max = get_max_node(*list);
-	if (max->index == 0)
-		ra(list);
-	else if (max->index == 1)
-		rra(list);
-	if (!is_sorted(*list))
+	if (a > b && b < c && a < c)
 		sa(list);
+	else if (a > b && b > c)
+	{
+		sa(list);
+		rra(list);
+	}
+	else if (a > b && a > c && b < c)
+		ra(list);
+	else if (a < b && b > c && a > c)
+		rra(list);
+	else if (a < b && b > c && a < c)
+	{
+		rra(list);
+		sa(list);
+	}
+}
+
+void sort_four(t_stack **a, t_stack **b)
+{
+	t_stack *current = *a;
+	int min = current->value;
+	int min_pos = 0;
+	int pos = 0;
+
+	while (current)
+	{
+		if (current->value < min)
+		{
+			min = current->value;
+			min_pos = pos;
+		}
+		current = current->next;
+		pos++;
+	}
+	if (min_pos == 1)
+		ra(a);
+	else if (min_pos == 2)
+	{
+		ra(a);
+		ra(a);
+	}
+	else if (min_pos == 3)
+		rra(a);
+	if (!is_sorted(*a))
+	{
+		pb(a, b);
+		sort_three(a);
+		pa(a, b);
+	}
 }
 
 void	move_from_a_to_b(t_stack **a, t_stack **b)
@@ -272,18 +317,25 @@ void	move_min_to_top(t_stack **a)
 void	turk_sort(t_stack **a, t_stack **b)
 {
 	int		i;
+	int		size;
 	t_stack	*current;
 
 	if (is_sorted(*a))
 		return ;
-	if (!is_sorted(*a) && get_list_size(*a) == 2)
+	size = get_list_size(*a);
+	if (size == 2)
 	{
 		sa(a);
-		return ;
+		return;
 	}
-	if (!is_sorted(*a) && get_list_size(*a) == 3)
+	if (size == 3)
 	{
 		sort_three(a);
+		return;
+	}
+	if (size == 4)
+	{
+		sort_four(a, b);
 		return;
 	}
 	i = 0;
