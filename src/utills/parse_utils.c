@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 17:05:34 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/25 17:25:53 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:14:04 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,4 +247,19 @@ t_stack	*init_stack(int argc, char **argv)
 		}
 	}
 	return (a);
+}
+
+void	set_list_index(t_stack *list)
+{
+	int	i;
+
+	if (!list)
+		return;
+	i = 0;
+	while (list)
+	{
+		list->index = i;
+		i++;
+		list = list->next;
+	}
 }

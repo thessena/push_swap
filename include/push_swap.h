@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:37:16 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/25 14:57:00 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:17:04 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ void	rotate_if_both_above_mid(t_stack **a, t_stack **b, t_stack *cheapest);
 void	rotate_if_both_below_mid(t_stack **a, t_stack **b, t_stack *cheapest);
 void	rotate_seperate(t_stack **a, t_stack **b, t_stack *cheapest);
 void	sort_three(t_stack **list);
+void	sort_four(t_stack **a, t_stack **b);
 void	move_from_a_to_b(t_stack **a, t_stack **b);
 void	move_from_b_to_a(t_stack **a, t_stack **b);
 void	move_min_to_top(t_stack **a);
+void	set_list_index(t_stack *list);
 void	turk_sort(t_stack **a, t_stack **b);
 
 #endif

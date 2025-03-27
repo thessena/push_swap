@@ -39,12 +39,14 @@ if [ -z "$2" ];then
 else
 	n=$2;
 fi
-ARG=$(ruby -e "puts (0..($n)).to_a.shuffle.join(' ')"); ./push_swap $ARG | ./pro_checker $ARG
+ARG=$(ruby -e "puts (0..($n)).to_a.shuffle.join(' ')"); ./push_swap $ARG > operations.txt cat operations.txt | ./pro_checker $ARG
 exit 0
 fi
 
 if [ $1 == -v2 ];then
-ARG=$2; ./push_swap $ARG | ./pro_checker $ARG
+ARG=$2;
+./push_swap $ARG > operations.txt
+cat operations.txt | ./pro_checker $ARG
 exit 0
 fi
 
@@ -3304,7 +3306,7 @@ cont=1
 while [ $cont -lt $val ]
 do
 ARG=$(ruby -e "puts (00..99).to_a.shuffle.join(' ')");
-S=$(./push_swap $ARG | ./checker_Mac $ARG)
+S=$(./push_swap $ARG > operations.txt | ./checker_Mac $ARG)
 if [ $S == "OK" ]; then
 	printf "${GREEN}$cont .[OK]${DEF_COLOR}";
 	control=2

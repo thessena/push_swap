@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/25 18:22:35 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:06:16 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_stack *get_max_node(t_stack *list)
     max = list;
     while (list)
     {
-        if (list->value < max->value)
+        if (list->value > max->value)
             max = list;
         list = list->next;
     }
@@ -209,22 +209,22 @@ void	rotate_seperate(t_stack **a, t_stack **b, t_stack *cheapest)
 
 void	sort_three(t_stack **list)
 {
-	int a = (*list)->value;
-	int b = (*list)->next->value;
-	int c = (*list)->next->next->value;
+	int top = (*list)->value;
+	int middle = (*list)->next->value;
+	int bottom = (*list)->next->next->value;
 
-	if (a > b && b < c && a < c)
+	if (top > middle && middle < bottom && top < bottom)
 		sa(list);
-	else if (a > b && b > c)
+	else if (top > middle && middle > bottom && top > bottom)
 	{
 		sa(list);
 		rra(list);
 	}
-	else if (a > b && a > c && b < c)
+	else if (top > middle && top > bottom && middle < bottom)
 		ra(list);
-	else if (a < b && b > c && a > c)
+	else if (top < middle && middle > bottom && top > bottom)
 		rra(list);
-	else if (a < b && b > c && a < c)
+	else if (top < middle && middle > bottom && top < bottom)
 	{
 		rra(list);
 		sa(list);
@@ -287,9 +287,9 @@ void	move_from_b_to_a(t_stack **a, t_stack **b)
 {
 	int	size_a;
 
-	size_a = get_list_size(*a);
 	if (!*b || !(*b)->target)
 		return ;
+	size_a = get_list_size(*a);
 	if ((*b)->target->index <= size_a / 2)
 		while ((*b)->target != *a)
 			ra(a);
@@ -316,40 +316,40 @@ void	move_min_to_top(t_stack **a)
 
 void	turk_sort(t_stack **a, t_stack **b)
 {
-	int		i;
-	int		size;
-	t_stack	*current;
+	// int		i;
+	// t_stack	*current;
 
 	if (is_sorted(*a))
 		return ;
-	size = get_list_size(*a);
-	if (size == 2)
+	if (get_list_size(*a) == 2)
 	{
 		sa(a);
 		return;
 	}
-	if (size == 3)
+	if (get_list_size(*a) == 3)
 	{
 		sort_three(a);
 		return;
 	}
-	if (size == 4)
+	if (get_list_size(*a) == 4)
 	{
 		sort_four(a, b);
 		return;
 	}
-	i = 0;
+/* 	i = 0;
 	current = *a;
 	while (current)
 	{
 		current->index = i++;
 		current = current->next;
-	}
-	pb(a, b);
-	pb(a, b);
+	} */
+	if (get_list_size(*a) > 3)
+		pb(a, b);
+	if (get_list_size(*a) > 3)
+		pb(a, b);
 	while (get_list_size(*a) > 3)
 	{
-		i = 0;
+/* 		i = 0;
 		current = *a;
 		while (current)
 		{
@@ -362,7 +362,7 @@ void	turk_sort(t_stack **a, t_stack **b)
 		{
 			current->index = i++;
 			current = current->next;
-		}
+		} */
 		set_nearest_smaller_target(a, b);
 		move_from_a_to_b(a, b);
 		pb(a, b);
@@ -370,7 +370,7 @@ void	turk_sort(t_stack **a, t_stack **b)
 	sort_three(a);
 	while (*b)
 	{
-		i = 0;
+/* 		i = 0;
 		current = *a;
 		while (current)
 		{
@@ -383,7 +383,7 @@ void	turk_sort(t_stack **a, t_stack **b)
 		{
 			current->index = i++;
 			current = current->next;
-		}
+		} */
 		set_nearest_bigger_target(a, b);
 		move_from_b_to_a(a, b);
 	}

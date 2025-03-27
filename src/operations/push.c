@@ -1,48 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 17:09:10 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/21 19:10:33 by thessena         ###   ########.fr       */
+/*   Created: 2025/03/13 19:26:26 by thessena          #+#    #+#             */
+/*   Updated: 2025/03/27 16:17:44 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	sa(t_stack **a)
+void	pb(t_stack **a, t_stack **b)
 {
 	t_stack	*tmp;
 
-	if (*a || (*a)->next)
+	if (*a)
 	{
-		tmp = (*a)->next;
-		(*a)->next = tmp->next;
-		tmp->next = *a;
-		*a = tmp;
-		write(1, "sa\n", 3);
-	}
-}
-
-void	sb(t_stack **b)
-{
-	t_stack	*tmp;
-
-	if (*b || (*b)->next)
-	{
-		tmp = (*b)->next;
-		(*b)->next = tmp->next;
+		tmp = *a;
+		*a = (*a)->next;
 		tmp->next = *b;
 		*b = tmp;
-		write(1, "sb\n", 3);
+		set_list_index(*a);
+		set_list_index(*b);
+		write(1, "pb\n", 3);
 	}
 }
 
-void	ss(t_stack **a, t_stack **b)
+void	pa(t_stack **a, t_stack **b)
 {
-	sa(a);
-	sb(b);
-	write(1, "ss\n", 3);
+	t_stack	*tmp;
+
+	if (*b)
+	{
+		tmp = *b;
+		*b = (*b)->next;
+		tmp->next = *a;
+		*a = tmp;
+		set_list_index(*a);
+		set_list_index(*b);
+		write(1, "pa\n", 3);
+	}
 }

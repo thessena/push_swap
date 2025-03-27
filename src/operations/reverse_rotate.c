@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:27:52 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/21 19:10:19 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:28:40 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	rra(t_stack **a)
 		prev->next = NULL;
 		tmp->next = *a;
 		*a = tmp;
+		set_list_index(*a);
 		write(1, "rra\n", 4);
 	}
 }
@@ -48,6 +49,7 @@ void	rrb(t_stack **b)
 		prev->next = NULL;
 		tmp->next = *b;
 		*b = tmp;
+		set_list_index(*b);
 		write(1, "rrb\n", 4);
 	}
 }
@@ -56,5 +58,5 @@ void	rrr(t_stack **a, t_stack **b)
 {
 	rra(a);
 	rrb(b);
-	write(1, "rrr\n", 4);
+	// write(1, "rrr\n", 4);
 }
