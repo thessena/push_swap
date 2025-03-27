@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:27:52 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/27 16:28:40 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:12:52 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,4 @@ void	rrr(t_stack **a, t_stack **b)
 {
 	rra(a);
 	rrb(b);
-	// write(1, "rrr\n", 4);
 }

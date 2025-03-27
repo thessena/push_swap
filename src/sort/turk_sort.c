@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/27 17:06:16 by thessena         ###   ########.fr       */
+/*   Updated: 2025/03/27 18:14:03 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ int	is_sorted(t_stack *list)
 	return (1);
 }
 
-t_stack *get_max_node(t_stack *list)
+t_stack	*get_max_node(t_stack *list)
 {
-    t_stack *max;
+	t_stack	*max;
 
-    max = list;
-    while (list)
-    {
-        if (list->value > max->value)
-            max = list;
-        list = list->next;
-    }
-    return (max);
+	max = list;
+	while (list)
+	{
+		if (list->value > max->value)
+			max = list;
+		list = list->next;
+	}
+	return (max);
 }
 
 t_stack *get_min_node(t_stack *list)
@@ -316,9 +316,6 @@ void	move_min_to_top(t_stack **a)
 
 void	turk_sort(t_stack **a, t_stack **b)
 {
-	// int		i;
-	// t_stack	*current;
-
 	if (is_sorted(*a))
 		return ;
 	if (get_list_size(*a) == 2)
@@ -336,33 +333,12 @@ void	turk_sort(t_stack **a, t_stack **b)
 		sort_four(a, b);
 		return;
 	}
-/* 	i = 0;
-	current = *a;
-	while (current)
-	{
-		current->index = i++;
-		current = current->next;
-	} */
 	if (get_list_size(*a) > 3)
 		pb(a, b);
 	if (get_list_size(*a) > 3)
 		pb(a, b);
 	while (get_list_size(*a) > 3)
 	{
-/* 		i = 0;
-		current = *a;
-		while (current)
-		{
-			current->index = i++;
-			current = current->next;
-		}
-		i = 0;
-		current = *b;
-		while (current)
-		{
-			current->index = i++;
-			current = current->next;
-		} */
 		set_nearest_smaller_target(a, b);
 		move_from_a_to_b(a, b);
 		pb(a, b);
@@ -370,20 +346,6 @@ void	turk_sort(t_stack **a, t_stack **b)
 	sort_three(a);
 	while (*b)
 	{
-/* 		i = 0;
-		current = *a;
-		while (current)
-		{
-			current->index = i++;
-			current = current->next;
-		}
-		i = 0;
-		current = *b;
-		while (current)
-		{
-			current->index = i++;
-			current = current->next;
-		} */
 		set_nearest_bigger_target(a, b);
 		move_from_b_to_a(a, b);
 	}
