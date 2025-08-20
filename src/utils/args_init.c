@@ -65,17 +65,20 @@ static int	fill_split_array(char **result, char *arg, int words)
 			i++;
 		if (arg[i])
 		{
-			start = i;
-			while (arg[i] && !is_space(arg[i]))
-				i++;
-			result[word_idx] = extract_word(arg, start, i);
-			if (!result[word_idx])
-				return (0);
-			word_idx++;
-		}
-	}
-	result[word_idx] = NULL;
-	return (1);
+                        start = i;
+                        while (arg[i] && !is_space(arg[i]))
+                                i++;
+                        result[word_idx] = extract_word(arg, start, i);
+                        if (!result[word_idx])
+                        {
+                                result[word_idx] = NULL;
+                                return (0);
+                        }
+                        word_idx++;
+                }
+        }
+        result[word_idx] = NULL;
+        return (1);
 }
 
 char	**split_args(char *arg, int *count)
