@@ -6,76 +6,13 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 16:25:51 by thessena          #+#    #+#             */
-/*   Updated: 2025/08/28 17:01:00 by thessena         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:10:16 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/push_swap.h"
 
-void	sort_three(t_stack **list)
-{
-	int	top;
-	int	middle;
-	int	bottom;
-
-	top = (*list)->value;
-	middle = (*list)->next->value;
-	bottom = (*list)->next->next->value;
-	if (top > middle && middle < bottom && top < bottom)
-		sa(list);
-	else if (top > middle && middle > bottom && top > bottom)
-	{
-		sa(list);
-		rra(list);
-	}
-	else if (top > middle && top > bottom && middle < bottom)
-		ra(list);
-	else if (top < middle && middle > bottom && top > bottom)
-		rra(list);
-	else if (top < middle && middle > bottom && top < bottom)
-	{
-		rra(list);
-		sa(list);
-	}
-}
-
-void	sort_four(t_stack **a, t_stack **b)
-{
-	t_stack	*current;
-	int		min;
-	int		min_pos;
-	int		pos;
-
-	current = *a;
-	min = current->value;
-	min_pos = 0;
-	pos = 0;
-	while (current)
-	{
-		if (current->value < min)
-		{
-			min = current->value;
-			min_pos = pos;
-		}
-		current = current->next;
-		pos++;
-	}
-	if (min_pos == 1)
-		ra(a);
-	else if (min_pos == 2)
-	{
-		ra(a);
-		ra(a);
-	}
-	else if (min_pos == 3)
-		rra(a);
-	if (!is_sorted(*a))
-	{
-		pb(a, b);
-		sort_three(a);
-		pa(a, b);
-	}
-}
+/* sort_three and sort_four moved to src/sort/small_sort.c */
 
 void	move_from_a_to_b(t_stack **a, t_stack **b)
 {
@@ -89,7 +26,8 @@ void	move_from_a_to_b(t_stack **a, t_stack **b)
 	cheapest = get_cheapest_node(*a);
 	if (cheapest->index <= size_a / 2 && cheapest->target->index <= size_b / 2)
 		rotate_if_both_above_mid(a, b, cheapest);
-	else if (cheapest->index > size_a / 2 && cheapest->target->index > size_b / 2)
+	else if (cheapest->index > size_a / 2 \
+		&& cheapest->target->index > size_b / 2)
 		rotate_if_both_below_mid(a, b, cheapest);
 	else
 		rotate_seperate(a, b, cheapest);

@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 19:00:55 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/27 19:04:46 by thessena         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:18:45 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	set_nearest_smaller_target(t_stack **a, t_stack **b)
 		current_a->target = NULL;
 		while (current_b)
 		{
-			if (current_b->value < current_a->value && (current_a->value - current_b->value) < min_diff)
+			if (current_b->value < current_a->value && \
+				(current_a->value - current_b->value) < min_diff)
 			{
 				min_diff = current_a->value - current_b->value;
 				current_a->target = current_b;
@@ -53,7 +54,8 @@ void	set_nearest_bigger_target(t_stack **a, t_stack **b)
 		current_b->target = NULL;
 		while (current_a)
 		{
-			if (current_a->value > current_b->value && (current_a->value - current_b->value) < min_diff)
+			if (current_a->value > current_b->value && \
+				(current_a->value - current_b->value) < min_diff)
 			{
 				min_diff = current_a->value - current_b->value;
 				current_b->target = current_a;
@@ -83,13 +85,10 @@ void	calc_cheapest(t_stack *a, t_stack *b)
 			cost_a = current->index;
 		else
 			cost_a = size_a - current->index;
-		if (current->target)
-		{
-			if (current->target->index <= size_b / 2)
-				cost_b = current->target->index;
-			else
-				cost_b = size_b - current->target->index;
-		}
+		if (current->target && current->target->index <= size_b / 2)
+			cost_b = current->target->index;
+		else if (current->target)
+			cost_b = size_b - current->target->index;
 		else
 			cost_b = 0;
 		current->cost = cost_a + cost_b;
