@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:41:08 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/27 19:21:48 by thessena         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:07:42 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,3 @@ char	**split_args(char *arg, int *count)
 	*count = words;
 	return (result);
 }
-
-

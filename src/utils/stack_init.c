@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 18:23:58 by thessena          #+#    #+#             */
-/*   Updated: 2025/03/27 19:14:07 by thessena         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:09:48 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	check_and_append(t_stack **stack, long num, char *str)
 {
-	if (!is_valid_number(str) || num > INT_MAX || num < INT_MIN || has_duplicate(*stack, num))
+	if (!is_valid_number(str) || num > INT_MAX || \
+	num < INT_MIN || has_duplicate(*stack, num))
 	{
 		free_stack(*stack);
 		write(2, "Error\n", 6);

@@ -6,7 +6,7 @@
 /*   By: thessena <thessena@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:27:52 by thessena          #+#    #+#             */
-/*   Updated: 2025/08/28 16:52:05 by thessena         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:07:06 by thessena         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,11 @@ void	rrb(t_stack **b)
 
 void	rrr(t_stack **a, t_stack **b)
 {
-	int	a_valid = *a && (*a)->next;
-	int	b_valid = *b && (*b)->next;
+	int	a_valid;
+	int	b_valid;
 
+	a_valid = *a && (*a)->next;
+	b_valid = *b && (*b)->next;
 	if (a_valid && b_valid)
 	{
 		rotate_reverse(a);
